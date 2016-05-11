@@ -13,7 +13,7 @@ def get_db():
 @app.route('/')
 def show_entries():
     cur = get_db().cursor()
-    cur.execute('SELECT * FROM tbl')
+    cur.execute('SELECT * FROM login')
     print cur.fetchall()
     return render_template('index.html')
 
