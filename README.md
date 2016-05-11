@@ -18,7 +18,7 @@
 
   $ pip install Flask
 
-5.进入pages文件夹,运行helloworld
+5.进入根文件夹,运行helloworld
   
   $ python index.py
   

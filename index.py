@@ -1,7 +1,7 @@
 import sqlite3
-from flask import Flask,g
+from flask import Flask,render_template
 
-DATABASE = './database/data.db'
+DATABASE = '/Users/Joy/Code/webdesign/database/data.db'
 app = Flask(__name__)
 
 def get_db():
@@ -9,11 +9,16 @@ def get_db():
     return db
 
 @app.route('/')
-def hello_world():
+def show_entries():
 	cur = get_db().cursor()
 	cur.execute('SELECT * FROM tbl')
 	print cur.fetchall()
-	return 'Hello world'
+	return render_template('index.html')
+
+
+@app.route('/login')
+def login():
+	return render_template('login.html')
 if __name__ == '__main__':
 	app.run(debug=True)
 
