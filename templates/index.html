@@ -1,6 +1,11 @@
 {% extends "layout.html" %}
 {% block body %}
 <body>
+{% if valid%}
 
+    <h1><br/><br/><br/>欢迎你，管理员</h1>
+{% else %}
+    <meta http-equiv="refresh" content="0;url=/">
+{% endif %}
 </body>
 {% endblock %}
