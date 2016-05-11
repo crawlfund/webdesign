@@ -9,9 +9,11 @@
 2.上述命令中的任意一条就可以安装好 virtualenv 。也可以使用软件包管理器，在 Ubuntu 系统中可以试试:
 
   $ sudo apt-get install python-virtualenv
+  
 3.进入webpage文件夹,现在，每次需要使用项目时，必须先激活相应的环境。在 OS X 和 Linux 系统中运行:
   
   $ . venv/bin/activate
+  
 4.现在可以开始在你的 virtualenv 中安装 Flask 了:
 
   $ pip install Flask
