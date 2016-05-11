@@ -1,0 +1,10 @@
+#ignore some
+*.swp
+*.pyc
+*.db
+*.json
+*.csv
+*.DS_Store
+crawl/crawl/img
+web/crawlfund_flask_project/static/thumbnail
+.idea/
