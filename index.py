@@ -16,6 +16,7 @@ def show_entries():
     cur.execute('SELECT * FROM tbl')
     print cur.fetchall()
     return render_template('index.html')
+
 def valid_login(username,password):
     print 'username:'+username,'password:'+password
     return 1
