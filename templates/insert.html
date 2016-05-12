@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+{% block body %}
+<body>
+{% if valid == false%}
+    <meta http-equiv="refresh" content="0;url=/">
+{% endif %}
+<div class="container">
+    <h2 class="sub-header">{% print title %}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+        <thead>
+            <tr>
+                {% for head in table_head %}
+                <th>{% print head %}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody id="items_num">
+            {% for row in content %}
+                 <tr id="{% print row[0] %}">
+                {% for index in row %}
+                        <td>{% print index %}</td>
+                {% endfor %}
+                 </tr>
+            {% endfor %}
+                 </tbody>
+                        </table>
+    </div>
+    {% if title and title != '搜索结果' and title !='现在的进行的文娱活动' and title !='历史疾病'%}
+    <h3 class="sub-header">录入新数据</h3>
+    <div>
+        <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>房间号</th>
+                <th>是否需要打扫</th>
+                <th>是否吃药</th>
+                <th>需要帮助</th>
+                <th>是否起床</th>
+                <th>活动</th>
+                <th>确认修改</th>
+            </tr>
+        </thead>
+            <tbody>
+            <form class="form-modify" role="form" action="/insert_data" method="POST">
+            <tr>
+                <th><input type="number" name="id" id="item_id" value="12" readonly="true" style="width:40px;"/></th>
+                <th><input type="text" name="name" id="name" style="width:70px;"/></th>
+                <th><input type="text" name="room" id="room" style="width:60px;"/></th>
+                <th><select name="option_weisheng">
+                           <option style="width:200px">是</option>
+                           <option style="width:200px">否</option>
+                           <option style="width:200px">不需要</option>
+                          </select></th>
+                <th><select name="option_chiyao">
+                           <option style="width:200px">是</option>
+                           <option style="width:200px">否</option>
+                           <option style="width:200px">不需要</option>
+                          </select></th>
+                <th><select name="option_bangzhu">
+                           <option style="width:200px">是</option>
+                           <option style="width:200px">否</option>
+                           <option style="width:200px">不需要</option>
+                          </select></th>
+                <th><select name="option_qichuang">
+                           <option style="width:200px">是</option>
+                           <option style="width:200px">否</option>
+                           <option style="width:200px">不需要</option>
+                          </select></th>
+                <th><input type="text" name="huodong" id="huodong"/></th>
+                <th><button type="submit">提交</button></th>
+            </tr>
+            </form>
+            </tbody>
+            </table>
+    </div>
+    {% endif %}
+</div>
+<script>
+     document.getElementById('number').value=document.getElementById('items_num').childElementCount
+     function showName(obj){
+         if(obj<1){alert('你输入的数字小于1')}
+         document.getElementById('name_show').innerHTML=document.getElementById(obj).firstElementChild.nextElementSibling.innerHTML.toString();
+         document.getElementById('type').setAttribute("value",location.pathname.substr(1));
+     }
+</script>
+</body>
+{% endblock %}

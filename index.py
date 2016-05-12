@@ -160,5 +160,32 @@ def search_xueya():
     table_head = [u'编号', u'姓名', u'房间号', u'是否需要打扫', u'是否吃药', u'需要帮助', u'是否起床', u'活动']
     return render_template('xueya.html', show_chart=True, title=title, table_head=table_head, content=cur.fetchall())
 
+@app.route('/insert')
+def insert():
+    cur = get_db().cursor()
+    cur.execute("SELECT * FROM information")
+    title = u'全部数据'
+    table_head = [u'编号', u'姓名', u'房间号', u'是否需要打扫', u'是否吃药', u'需要帮助', u'是否起床', u'活动']
+    return render_template('insert.html', title=title, table_head=table_head, content=cur.fetchall())
+
+def insert_new(id,name,room,weisheng,chiyao,qiuzhu,qichuang,huodong):
+    print 'id:', id, 'name:', name, 'room:',room,'weisheng:', weisheng
+    conn = get_db()
+    cur = conn.cursor()
+    conn.execute("INSERT INTO information (ID,NAME,ROOM,WEISHENG,CHIYAO,QIUZHU,QICHUANG,HUODONG) \
+      VALUES ('" + id + "', '" + name + "', '" + room + "', '" + weisheng + "', '" + chiyao + "','" + qiuzhu + "' \
+       '" + qichuang + "','" + huodong + "')");
+    conn.commit()
+    return True
+@app.route('/insert_data', methods=['GET', 'POST'])
+def insert_data():
+    if request.method == 'POST':
+        if insert_new(request.form['id'], request.form['name'], request.form['room'], request.form['option_weisheng'],
+                       request.form['option_chiyao'],request.form['option_bangzhu'],request.form['option_qichuang'],
+                       request.form['huodong']):
+            return redirect(url_for('insert'))
+    return redirect(url_for('insert'))
+
+
 if __name__ == '__main__':
     app.run(debug=True)
