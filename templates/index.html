@@ -17,9 +17,8 @@
         </thead>
         <tbody>
             {% for row in content %}
-                 <tr>
+                 <tr id="{% print row[0] %}">
                 {% for index in row %}
-
                         <td>{% print index %}</td>
                 {% endfor %}
                  </tr>
@@ -27,8 +26,27 @@
                  </tbody>
                         </table>
     </div>
+    <h3 class="sub-header">修改内容</h3>
     <div>
-        
+        <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>要修改的编号</th>
+                <th>是/否/不需要</th>
+                <th>确认修改</th>
+            </tr>
+        </thead>
+            <tbody>
+            <tr>
+                <th><input/></th>
+                <th><select>
+                           <option style="width:200px">是</option>
+                           <option style="width:200px">否</option>
+                           <option style="width:200px">不需要</option>
+                          </select></th>
+                <th><button>提交</button></th>
+            </tr>
+            </table>
     </div>
 </div>
 </body>
