@@ -1,11 +1,30 @@
 {% extends "layout.html" %}
 {% block body %}
 <body>
-{% if valid%}
-
-    <h1><br/><br/><br/>欢迎你，管理员</h1>
-{% else %}
+{% if valid == false%}
     <meta http-equiv="refresh" content="0;url=/">
 {% endif %}
+<h2 class="sub-header">{% print title %}</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                {% for head in table_head %}
+                <th>{% print head %}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in content %}
+                 <tr>
+                {% for index in row %}
+
+                        <td>{% print index %}</td>
+                {% endfor %}
+                 </tr>
+            {% endfor %}
+                 </tbody>
+                        </table>
+                      </div>
 </body>
 {% endblock %}
