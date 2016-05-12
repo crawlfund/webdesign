@@ -88,48 +88,73 @@ def huodong():
     table_head = [u'编号', u'姓名', u'现在的进行的文娱活动']
     return render_template('index.html', valid=True, title=title, table_head=table_head, content=cur.fetchall())
 
+
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     key = request.form['search']
     cur = get_db().cursor()
     cur.execute("select * from information where name like '%" + key + "%'")
     title = u'搜索结果'
-    table_head = [u'编号', u'姓名', u'房间号',u'是否需要打扫',u'是否吃药',u'需要帮助',u'是否起床',u'活动']
+    table_head = [u'编号', u'姓名', u'房间号', u'是否需要打扫', u'是否吃药', u'需要帮助', u'是否起床', u'活动']
     return render_template('index.html', valid=True, title=title, table_head=table_head, content=cur.fetchall())
 
-@app.route('/search_xuetang', methods=['GET', 'POST'])
-def search_xuetang():
-    key = request.form['search']
-    cur = get_db().cursor()
-    cur.execute("select * from information where name like '%" + key + "%'")
-    title = u'搜索结果'
-    table_head = [u'编号', u'姓名', u'房间号']
-    return render_template('xuetang.html', show_chart=True, title=title, table_head=table_head, content=cur.fetchall())
 
-def valid_modiy(id, option,type):
-    if id >=1 :
-        print 'id:',id,'option:',option,'type',type
+def valid_modiy(id, option, type):
+    if id >= 1:
+        print 'id:', id, 'option:', option, 'type', type
         conn = get_db()
-        cur=conn.cursor()
-        cur.execute("update information SET '"+type + "' = '"+ option + "' where id ="+ str(id))
+        cur = conn.cursor()
+        cur.execute("update information SET '" + type + "' = '" + option + "' where id =" + str(id))
         conn.commit()
         return True
     else:
         return False
 
-@app.route('/modify_data',methods=['GET', 'POST'])
+
+@app.route('/modify_data', methods=['GET', 'POST'])
 def modify_data():
     if request.method == 'POST':
-        if valid_modiy(request.form['id'], request.form['option'],request.form['type']):
+        if valid_modiy(request.form['id'], request.form['option'], request.form['type']):
             return render_template('index.html', valid=True)
     return render_template('login.html')
+
 
 @app.route('/xuetang')
 def xuetang():
     cur = get_db().cursor()
-    cur.execute("select * from information")
+    cur.execute("SELECT * FROM information")
     title = u''
-    table_head = [u'编号', u'姓名', u'房间号',u'是否需要打扫',u'是否吃药',u'需要帮助',u'是否起床',u'活动']
-    return render_template('xuetang.html',title=title, table_head=table_head,content=cur.fetchall())
+    table_head = [u'编号', u'姓名', u'房间号', u'是否需要打扫', u'是否吃药', u'需要帮助', u'是否起床', u'活动']
+    return render_template('xuetang.html', title=title, table_head=table_head, content=cur.fetchall())
+
+
+@app.route('/search_xuetang', methods=['GET', 'POST'])
+def search_xuetang():
+    key = request.form['search']
+    cur = get_db().cursor()
+    cur.execute("select * from information where id = " + str(key))
+    title = u'搜索结果'
+    table_head = [u'编号', u'姓名', u'房间号', u'是否需要打扫', u'是否吃药', u'需要帮助', u'是否起床', u'活动']
+    return render_template('xuetang.html', show_chart=True, title=title, table_head=table_head, content=cur.fetchall())
+
+
+@app.route('/xueya')
+def xueya():
+    cur = get_db().cursor()
+    cur.execute("SELECT * FROM information")
+    title = u''
+    table_head = [u'编号', u'姓名', u'房间号', u'是否需要打扫', u'是否吃药', u'需要帮助', u'是否起床', u'活动']
+    return render_template('xueya.html', title=title, table_head=table_head, content=cur.fetchall())
+
+
+@app.route('/search_xueya', methods=['GET', 'POST'])
+def search_xueya():
+    key = request.form['search']
+    cur = get_db().cursor()
+    cur.execute("select * from information where id =" + str(key))
+    title = u'搜索结果'
+    table_head = [u'编号', u'姓名', u'房间号', u'是否需要打扫', u'是否吃药', u'需要帮助', u'是否起床', u'活动']
+    return render_template('xueya.html', show_chart=True, title=title, table_head=table_head, content=cur.fetchall())
+
 if __name__ == '__main__':
     app.run(debug=True)

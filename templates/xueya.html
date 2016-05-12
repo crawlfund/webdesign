@@ -12,8 +12,8 @@
 <body>
 
     <div class="container">
-    <h2 class="sub-header">要查看谁的血糖</h2>
-     <form class="navbar-form navbar-left" action="/search_xuetang" role="search" method="POST">
+    <h2 class="sub-header">要查看谁的血压</h2>
+     <form class="navbar-form navbar-left" action="/search_xueya" role="search" method="POST">
         <div class="form-group">
           <input type="text" class="form-control" placeholder=“输入id查询” name="search">
         </div>
@@ -49,14 +49,14 @@
         var myChart = echarts.init(document.getElementById('main'));
         option = {
     title: {
-        text: '一周内血糖变化',
+        text: '一周内血压变化',
         //subtext: '纯属虚构'
     },
     tooltip: {
         trigger: 'axis'
     },
     legend: {
-        data:['最高血糖','最低血糖']
+        data:['最高血压','最低血压']
     },
     xAxis:  {
         type: 'category',
@@ -66,14 +66,14 @@
     yAxis: {
         type: 'value',
         axisLabel: {
-            formatter: '{value} °mg/dl'
+            formatter: '{value} mmHg'
         }
     },
     series: [
         {
-            name:'全血血糖',
+            name:'收缩压',
             type:'line',
-            data:[parseInt(Math.random()*(110-70+1)+70), parseInt(Math.random()*(110-70+1)+70), parseInt(Math.random()*(110-70+1)+70), parseInt(Math.random()*(110-70+1)+70),parseInt( Math.random()*(110-70+1)+70),parseInt(Math.random()*(110-70+1)+70), parseInt(Math.random()*(110-70+1)+70)],
+            data:[parseInt(Math.random()*(140-90+1)+90), parseInt(Math.random()*(140-90+1)+90), parseInt(Math.random()*(140-90+1)+90), parseInt(Math.random()*(140-90+1)+90),parseInt( Math.random()*(140-90+1)+90),parseInt(Math.random()*(140-90+1)+90), parseInt(Math.random()*(140-90+1)+90)],
             markPoint: {
                 data: [
                     {type: 'max', name: '最大值'},
@@ -87,9 +87,9 @@
             }
         },
         {
-            name:'血浆血糖',
+            name:'舒张压',
             type:'line',
-            data:[parseInt(Math.random()*(125-70+1)+70), parseInt(Math.random()*(125-70+1)+70), parseInt(Math.random()*(125-70+1)+70), parseInt(Math.random()*(125-70+1)+70),parseInt( Math.random()*(125-70+1)+70),parseInt(Math.random()*(125-70+1)+70), parseInt(Math.random()*(125-70+1)+70)],
+            data:[parseInt(Math.random()*(90-60+1)+60), parseInt(Math.random()*(90-60+1)+60), parseInt(Math.random()*(90-60+1)+60), parseInt(Math.random()*(90-60+1)+60),parseInt( Math.random()*(90-60+1)+60),parseInt(Math.random()*(90-60+1)+60), parseInt(Math.random()*(90-60+1)+60)],
             markPoint: {
                 data: [
                     {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
