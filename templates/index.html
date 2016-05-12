@@ -4,9 +4,10 @@
 {% if valid == false%}
     <meta http-equiv="refresh" content="0;url=/">
 {% endif %}
-<h2 class="sub-header">{% print title %}</h2>
-<div class="table-responsive">
-    <table class="table table-striped">
+<div class="container">
+    <h2 class="sub-header">{% print title %}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
         <thead>
             <tr>
                 {% for head in table_head %}
@@ -25,6 +26,10 @@
             {% endfor %}
                  </tbody>
                         </table>
-                      </div>
+    </div>
+    <div>
+        
+    </div>
+</div>
 </body>
 {% endblock %}
