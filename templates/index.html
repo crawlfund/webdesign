@@ -38,16 +38,19 @@
             </tr>
         </thead>
             <tbody>
+            <form class="form-modify" role="form" action="/modify_data" method="POST">
             <tr>
-                <th><input type="number" id="item_id" onchange="showName(this.value)"/></th>
+                <th><input type="number" name="id" id="item_id" onchange="showName(this.value)"/></th>
                 <th id="name_show">请输入ID</th>
-                <th><select>
+                <th><select name="option">
                            <option style="width:200px">是</option>
                            <option style="width:200px">否</option>
                            <option style="width:200px">不需要</option>
                           </select></th>
-                <th><button>提交</button></th>
+                <th><button type="submit">提交</button></th>
             </tr>
+            </form>
+            </tbody>
             </table>
     </div>
 </div>

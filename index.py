@@ -88,6 +88,23 @@ def huodong():
     table_head = [u'编号', u'姓名', u'现在的进行的文娱活动']
     return render_template('index.html', valid=True, title=title, table_head=table_head, content=cur.fetchall())
 
+def valid_modiy(id, option):
+    if id >=1 :
+        print 'id:',id,'option:',option
+        conn = get_db()
+        cur=conn.cursor()
+        cur.execute("update information SET chiyao = '"+ option + "' where id ="+ str(id))
+        conn.commit()
+        return True
+    else:
+        return False
+
+@app.route('/modify_data',methods=['GET', 'POST'])
+def modify_data():
+    if request.method == 'POST':
+        if valid_modiy(request.form['id'], request.form['option']):
+            return render_template('index.html', valid=True)
+    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
