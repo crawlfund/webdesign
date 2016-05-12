@@ -10,12 +10,18 @@
 }
 </style>
 <body>
-
+    <script>
+     function showName(obj){
+        if(typeof obj !='number'){
+             alert('ID必须为0-999的数字！')
+        }
+     }
+</script>
     <div class="container">
     <h2 class="sub-header">要查看谁的血糖</h2>
      <form class="navbar-form navbar-left" action="/search_xuetang" role="search" method="POST">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder=“输入id查询” name="search">
+          <input type="text" id="search_id" class="form-control" placeholder=“输入id查询” name="search" onchange="showName(this.value)"/>
         </div>
         <button type="submit" class="btn btn-default">查询</button>
 
@@ -42,6 +48,7 @@
                         </table>
     </div>
 </div>
+
     <!-- 为 ECharts 准备一个具备大小（宽高）的Dom -->
     {% if show_chart and content %}
     <div id="main" style="width: 1000px;height:400px;" class="col-center-block"></div>
@@ -108,6 +115,7 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
     </script>
+
 {% endif %}
 </body>
 {% endblock %}

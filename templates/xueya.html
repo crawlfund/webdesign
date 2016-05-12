@@ -10,12 +10,18 @@
 }
 </style>
 <body>
-
+      <script>
+     function showName(obj){
+        if(typeof obj !='number'){
+             alert('ID必须为0-999的数字！')
+        }
+     }
+</script>
     <div class="container">
     <h2 class="sub-header">要查看谁的血压</h2>
      <form class="navbar-form navbar-left" action="/search_xueya" role="search" method="POST">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder=“输入id查询” name="search">
+          <input type="text" class="form-control" placeholder=“输入id查询” name="search" onchange="showName(this.value)">
         </div>
         <button type="submit" class="btn btn-default">查询</button>
 
