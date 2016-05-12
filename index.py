@@ -169,15 +169,16 @@ def insert():
     table_head = [u'编号', u'姓名', u'房间号', u'是否需要打扫', u'是否吃药', u'需要帮助', u'是否起床', u'活动']
     return render_template('insert.html', title=title, table_head=table_head, content=cur.fetchall())
 
-def insert_new(id,name,room,weisheng,chiyao,qiuzhu,qichuang,huodong):
-    print 'id:', id, 'name:', name, 'room:',room,'weisheng:', weisheng
+
+def insert_new(id, name, room, weisheng, chiyao, qiuzhu, qichuang, huodong):
     conn = get_db()
     cur = conn.cursor()
-    conn.execute("INSERT INTO information (ID,NAME,ROOM,WEISHENG,CHIYAO,QIUZHU,QICHUANG,HUODONG) \
-      VALUES ('" + id + "', '" + name + "', '" + room + "', '" + weisheng + "', '" + chiyao + "','" + qiuzhu + "' \
-       '" + qichuang + "','" + huodong + "')");
+    cur.execute("INSERT INTO information (id,name,room,weisheng,chiyao,qiuzhu,qichuang,huodong) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"
+                % id, name, room, weisheng, chiyao, qiuzhu, qichuang, huodong)
     conn.commit()
     return True
+
+
 @app.route('/insert_data', methods=['GET', 'POST'])
 def insert_data():
     if request.method == 'POST':
