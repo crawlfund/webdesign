@@ -32,7 +32,6 @@
         <table class="table table-striped">
         <thead>
             <tr>
-                <th>编号</th>
                 <th>姓名</th>
                 <th>房间号</th>
                 <th>是否需要打扫</th>
@@ -46,7 +45,6 @@
             <tbody>
             <form class="form-modify" role="form" action="/insert_data" method="POST">
             <tr>
-                <th><input type="number" name="id" id="item_id" value="12" readonly="true" style="width:40px;"/></th>
                 <th><input type="text" name="name" id="name" style="width:70px;"/></th>
                 <th><input type="text" name="room" id="room" style="width:60px;"/></th>
                 <th><select name="option_weisheng">
@@ -70,17 +68,44 @@
                            <option style="width:200px">不需要</option>
                           </select></th>
                 <th><input type="text" name="huodong" id="huodong"/></th>
-                <th><button type="submit">提交</button></th>
+                <th><button type="submit" onclick="return check_data()">提交</button></th>
             </tr>
             </form>
             </tbody>
             </table>
     </div>
     {% endif %}
+    <h3 class="sub-header">删除数据</h3>
+    <div>
+        <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>要删除的编号</th>
+                <th>姓名</th>
+                <th>确认修改</th>
+            </tr>
+        </thead>
+            <tbody>
+            <form class="form-delete" role="form" action="/delete_data" method="POST">
+            <tr>
+                <th><input type="number_del" name="id_del" id="del_id" onchange="showName(this.value)" /></th>
+                <th id="name_show">请输入ID</th>
+                <th><button type="submit">提交</button></th>
+            </tr>
+            </form>
+            </tbody>
+            </table>
+    </div>
 </div>
+
 <script>
-     document.getElementById('number').value=document.getElementById('items_num').childElementCount
-     function showName(obj){
+     function check_data(){
+        if(document.getElementById('name').value=="" || document.getElementById('room').value=="")
+        {alert('输入为空');return false;}
+         return true;
+
+     }
+      function showName(obj){
          if(obj<1){alert('你输入的数字小于1')}
          document.getElementById('name_show').innerHTML=document.getElementById(obj).firstElementChild.nextElementSibling.innerHTML.toString();
          document.getElementById('type').setAttribute("value",location.pathname.substr(1));

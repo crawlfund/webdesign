@@ -170,10 +170,12 @@ def insert():
     return render_template('insert.html', title=title, table_head=table_head, content=cur.fetchall())
 
 
-def insert_new(id, name, room, weisheng, chiyao, qiuzhu, qichuang, huodong):
-    data = '"'+str(id)+'"' + ',' + '"'+name+'"' + ','  + '"'+str(room)+'"' + ',' + '"'+weisheng+'"' + ',' + '"'+chiyao+'"' + ',' + '"'+qiuzhu+'"' + ',' + '"'+qichuang+'"' + ',' + '"'+huodong+'"'
+def insert_new(name, room, weisheng, chiyao, qiuzhu, qichuang, huodong):
     conn = get_db()
     cur = conn.cursor()
+    cur.execute("select * from information")
+    id=len(cur.fetchall())+1
+    data = '"'+str(id)+'"' + ',' + '"'+name+'"' + ','  + '"'+str(room)+'"' + ',' + '"'+weisheng+'"' + ',' + '"'+chiyao+'"' + ',' + '"'+qiuzhu+'"' + ',' + '"'+qichuang+'"' + ',' + '"'+huodong+'"'
     sqli = "INSERT INTO information (id, name, room, weisheng, chiyao, qiuzhu, qichuang, huodong) VALUES (%s)" % data
     print sqli
     cur.execute(sqli)
@@ -184,12 +186,28 @@ def insert_new(id, name, room, weisheng, chiyao, qiuzhu, qichuang, huodong):
 @app.route('/insert_data', methods=['GET', 'POST'])
 def insert_data():
     if request.method == 'POST':
-        if insert_new(request.form['id'], request.form['name'], request.form['room'], request.form['option_weisheng'],
+        if insert_new( request.form['name'], request.form['room'], request.form['option_weisheng'],
                        request.form['option_chiyao'],request.form['option_bangzhu'],request.form['option_qichuang'],
                        request.form['huodong']):
             return redirect(url_for('insert'))
     return redirect(url_for('insert'))
 
+def valid_del(id):
+    print 'id:', id
+    conn = get_db()
+    cur = conn.cursor()
+    conn.execute("DELETE from information where ID="+str(id));
+    conn.commit()
+    return True
+
+
+
+@app.route('/delete_data', methods=['GET', 'POST'])
+def delete_data():
+    if request.method == 'POST':
+        if valid_del(request.form['id_del']):
+            return redirect(url_for('insert'))
+    return redirect(url_for('insert'))
 
 if __name__ == '__main__':
     app.run(debug=True)
