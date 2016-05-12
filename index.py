@@ -33,7 +33,7 @@ def login_process():
     error = None
     if request.method == 'POST':
         if valid_login(request.form['username'], request.form['password']):
-            return render_template('index.html', valid=True)
+            return render_template('shouye.html', valid=True)
         else:
             error = 'Invalid username/password'
     return render_template('login.html', error=error)
