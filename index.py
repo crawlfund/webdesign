@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import sqlite3
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,redirect,url_for
 
 DATABASE = 'database/data.db'
 app = Flask(__name__)
@@ -119,8 +119,8 @@ def valid_modiy(id, option, type):
 def modify_data():
     if request.method == 'POST':
         if valid_modiy(request.form['id'], request.form['option'], request.form['type']):
-            return render_template('index.html', valid=True)
-    return render_template('login.html')
+            return redirect(url_for(request.form['type']))
+    return redirect(url_for(request.form['type']))
 
 
 @app.route('/xuetang')
