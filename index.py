@@ -97,6 +97,15 @@ def search():
     table_head = [u'编号', u'姓名', u'房间号']
     return render_template('index.html', valid=True, title=title, table_head=table_head, content=cur.fetchall())
 
+@app.route('/search_xuetang', methods=['GET', 'POST'])
+def search_xuetang():
+    key = request.form['search']
+    cur = get_db().cursor()
+    cur.execute("select * from information where name like '%" + key + "%'")
+    title = u'搜索结果'
+    table_head = [u'编号', u'姓名', u'房间号']
+    return render_template('xuetang.html', show_chart=True, title=title, table_head=table_head, content=cur.fetchall())
+
 def valid_modiy(id, option,type):
     if id >=1 :
         print 'id:',id,'option:',option,'type',type
@@ -115,6 +124,11 @@ def modify_data():
             return render_template('index.html', valid=True)
     return render_template('login.html')
 
-
+@app.route('/xuetang')
+def xuetang():
+    cur = get_db().cursor()
+    cur.execute("select * from information")
+    title = u''
+    return render_template('xuetang.html',title=title, content=cur.fetchall())
 if __name__ == '__main__':
     app.run(debug=True)

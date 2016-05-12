@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+{% block body %}
+    <script src="/static/js/echarts.common.min.js"></script>
+    <style>
+.col-center-block {
+    float: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+<body>
+
+    <div class="container">
+    <h2 class="sub-header">要查看谁的血糖</h2>
+     <form class="navbar-form navbar-left" action="/search_xuetang" role="search" method="POST">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder=“搜索信息” name="search">
+        </div>
+        <button type="submit" class="btn btn-default">搜索</button>
+
+      </form>
+    <h2 class="sub-header"> <br/>{% print title %}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+        <thead>
+            <tr>
+                {% for head in table_head %}
+                <th>{% print head %}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in content %}
+                 <tr id="{% print row[0] %}">
+                {% for index in row %}
+                        <td>{% print index %}</td>
+                {% endfor %}
+                 </tr>
+            {% endfor %}
+                 </tbody>
+                        </table>
+    </div>
+</div>
+    <!-- 为 ECharts 准备一个具备大小（宽高）的Dom -->
+    {% if show_chart and content %}
+    <div id="main" style="width: 1000px;height:400px;" class="col-center-block"></div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+        option = {
+    title: {
+        text: '一周内血糖变化',
+        //subtext: '纯属虚构'
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['最高血糖','最低血糖']
+    },
+    xAxis:  {
+        type: 'category',
+        boundaryGap: false,
+        data: ['周一','周二','周三','周四','周五','周六','周日']
+    },
+    yAxis: {
+        type: 'value',
+        axisLabel: {
+            formatter: '{value} °C'
+        }
+    },
+    series: [
+        {
+            name:'全血血糖',
+            type:'line',
+            data:[70, 110, 95, 90, 100, 105, 89],
+            markPoint: {
+                data: [
+                    {type: 'max', name: '最大值'},
+                    {type: 'min', name: '最小值'}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'血浆血糖',
+            type:'line',
+            data:[80,115, 80, 100, 90, 95,100],
+            markPoint: {
+                data: [
+                    {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'}
+                ]
+            }
+        }
+    ]
+};
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+{% endif %}
+</body>
+{% endblock %}
