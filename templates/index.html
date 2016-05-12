@@ -32,13 +32,15 @@
         <thead>
             <tr>
                 <th>要修改的编号</th>
+                <th>姓名</th>
                 <th>是/否/不需要</th>
                 <th>确认修改</th>
             </tr>
         </thead>
             <tbody>
             <tr>
-                <th><input/></th>
+                <th><input type="number" name="item_id" onchange="showName(this.value)"/></th>
+                <th id="999">请输入ID</th>
                 <th><select>
                            <option style="width:200px">是</option>
                            <option style="width:200px">否</option>
@@ -49,5 +51,10 @@
             </table>
     </div>
 </div>
+<script>
+     function showName(obj){
+         document.getElementById(999).innerHTML=document.getElementById(obj).firstElementChild.nextElementSibling.innerHTML.toString();
+     }
+</script>
 </body>
 {% endblock %}
