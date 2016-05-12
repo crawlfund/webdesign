@@ -171,10 +171,12 @@ def insert():
 
 
 def insert_new(id, name, room, weisheng, chiyao, qiuzhu, qichuang, huodong):
+    data = '"'+str(id)+'"' + ',' + '"'+name+'"' + ','  + '"'+str(room)+'"' + ',' + '"'+weisheng+'"' + ',' + '"'+chiyao+'"' + ',' + '"'+qiuzhu+'"' + ',' + '"'+qichuang+'"' + ',' + '"'+huodong+'"'
     conn = get_db()
     cur = conn.cursor()
-    cur.execute("INSERT INTO information (id,name,room,weisheng,chiyao,qiuzhu,qichuang,huodong) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"
-                % id, name, room, weisheng, chiyao, qiuzhu, qichuang, huodong)
+    sqli = "INSERT INTO information (id, name, room, weisheng, chiyao, qiuzhu, qichuang, huodong) VALUES (%s)" % data
+    print sqli
+    cur.execute(sqli)
     conn.commit()
     return True
 
