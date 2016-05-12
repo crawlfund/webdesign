@@ -23,6 +23,10 @@ def valid_login(username, password):
 def login():
     return render_template('login.html')
 
+@app.route('/shouye')
+def shouye():
+    return render_template('shouye.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_process():
