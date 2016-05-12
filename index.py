@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sqlite3
 from flask import Flask, render_template, request,redirect,url_for
@@ -22,6 +22,7 @@ def valid_login(username, password):
 @app.route('/')
 def login():
     return render_template('login.html')
+
 
 @app.route('/shouye')
 def shouye():
@@ -97,7 +98,7 @@ def huodong():
 def search():
     key = request.form['search']
     cur = get_db().cursor()
-    cur.execute("select * from information where name like '%" + key + "%'")
+    cur.execute("SELECT * FROM information WHERE name LIKE '%" + key + "%'")
     title = u'搜索结果'
     table_head = [u'编号', u'姓名', u'房间号', u'是否需要打扫', u'是否吃药', u'需要帮助', u'是否起床', u'活动']
     return render_template('index.html', valid=True, title=title, table_head=table_head, content=cur.fetchall())
@@ -108,7 +109,7 @@ def valid_modiy(id, option, type):
         print 'id:', id, 'option:', option, 'type', type
         conn = get_db()
         cur = conn.cursor()
-        cur.execute("update information SET '" + type + "' = '" + option + "' where id =" + str(id))
+        cur.execute("UPDATE information SET '" + type + "' = '" + option + "' WHERE id =" + str(id))
         conn.commit()
         return True
     else:
@@ -136,7 +137,7 @@ def xuetang():
 def search_xuetang():
     key = request.form['search']
     cur = get_db().cursor()
-    cur.execute("select * from information where id = " + str(key))
+    cur.execute("SELECT * FROM information WHERE id = " + str(key))
     title = u'搜索结果'
     table_head = [u'编号', u'姓名', u'房间号', u'是否需要打扫', u'是否吃药', u'需要帮助', u'是否起床', u'活动']
     return render_template('xuetang.html', show_chart=True, title=title, table_head=table_head, content=cur.fetchall())
@@ -155,7 +156,7 @@ def xueya():
 def search_xueya():
     key = request.form['search']
     cur = get_db().cursor()
-    cur.execute("select * from information where id =" + str(key))
+    cur.execute("SELECT * FROM information WHERE id =" + str(key))
     title = u'搜索结果'
     table_head = [u'编号', u'姓名', u'房间号', u'是否需要打扫', u'是否吃药', u'需要帮助', u'是否起床', u'活动']
     return render_template('xueya.html', show_chart=True, title=title, table_head=table_head, content=cur.fetchall())
