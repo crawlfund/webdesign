@@ -10,11 +10,14 @@
 }
 </style>
 <body>
-      <script>
+    <script>
      function showName(obj){
-        if(typeof obj !='number'){
-             alert('ID必须为0-999的数字！')
-        }
+         if (obj==""){
+        alert("请输入内容");return false;
+    }
+    if (!(/(^[1-9]\d*$)/.test(obj))){
+        alert("输入的不是正整数");
+    }
      }
 </script>
     <div class="container">
