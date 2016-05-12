@@ -39,8 +39,8 @@
         </thead>
             <tbody>
             <tr>
-                <th><input type="number" name="item_id" onchange="showName(this.value)"/></th>
-                <th id="999">请输入ID</th>
+                <th><input type="number" id="item_id" onchange="showName(this.value)"/></th>
+                <th id="name_show">请输入ID</th>
                 <th><select>
                            <option style="width:200px">是</option>
                            <option style="width:200px">否</option>
@@ -53,7 +53,8 @@
 </div>
 <script>
      function showName(obj){
-         document.getElementById(999).innerHTML=document.getElementById(obj).firstElementChild.nextElementSibling.innerHTML.toString();
+         if(obj<1){alert('你输入的数字小于1')}
+         document.getElementById('name_show').innerHTML=document.getElementById(obj).firstElementChild.nextElementSibling.innerHTML.toString();
      }
 </script>
 </body>
