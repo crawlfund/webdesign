@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import sqlite3
-from flask import Flask,render_template,request
+from flask import Flask, render_template, request
 
 DATABASE = 'database/data.db'
 app = Flask(__name__)
@@ -12,19 +12,16 @@ def get_db():
     return db
 
 
-@app.route('/va')
-def show_entries():
-    cur = get_db().cursor()
-    #cur.execute('SELECT * FROM tbl')
-    #print cur.fetchall()
-    return render_template('index.html', valid=False)
-
-
 def valid_login(username,password):
     if username == u'root' and password == u'root':
         return True
     else:
         return False
+
+
+@app.route('/')
+def login():
+    return render_template('login.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -36,11 +33,6 @@ def login_process():
         else:
             error = 'Invalid username/password'
     return render_template('login.html', error=error)
-
-
-@app.route('/')
-def login():
-    return render_template('login.html')
 
 
 @app.route('/chiyao')
