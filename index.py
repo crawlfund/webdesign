@@ -97,12 +97,12 @@ def search():
     table_head = [u'编号', u'姓名', u'房间号']
     return render_template('index.html', valid=True, title=title, table_head=table_head, content=cur.fetchall())
 
-def valid_modiy(id, option):
+def valid_modiy(id, option,type):
     if id >=1 :
-        print 'id:',id,'option:',option
+        print 'id:',id,'option:',option,'type',type
         conn = get_db()
         cur=conn.cursor()
-        cur.execute("update information SET chiyao = '"+ option + "' where id ="+ str(id))
+        cur.execute("update information SET '"+type + "' = '"+ option + "' where id ="+ str(id))
         conn.commit()
         return True
     else:
@@ -111,7 +111,7 @@ def valid_modiy(id, option):
 @app.route('/modify_data',methods=['GET', 'POST'])
 def modify_data():
     if request.method == 'POST':
-        if valid_modiy(request.form['id'], request.form['option']):
+        if valid_modiy(request.form['id'], request.form['option'],request.form['type']):
             return render_template('index.html', valid=True)
     return render_template('login.html')
 

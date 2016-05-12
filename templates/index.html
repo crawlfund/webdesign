@@ -47,6 +47,7 @@
                            <option style="width:200px">否</option>
                            <option style="width:200px">不需要</option>
                           </select></th>
+                <input type="hidden" id="type" name="type">
                 <th><button type="submit">提交</button></th>
             </tr>
             </form>
@@ -58,6 +59,7 @@
      function showName(obj){
          if(obj<1){alert('你输入的数字小于1')}
          document.getElementById('name_show').innerHTML=document.getElementById(obj).firstElementChild.nextElementSibling.innerHTML.toString();
+         document.getElementById('type').setAttribute("value",location.pathname.substr(1));
      }
 </script>
 </body>
