@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sqlite3
-from flask import Flask, render_template, request,redirect,url_for
+from flask import Flask, render_template, request, redirect, url_for
 
 DATABASE = 'database/data.db'
 app = Flask(__name__)
@@ -161,6 +161,7 @@ def search_xueya():
     table_head = [u'编号', u'姓名', u'房间号', u'是否需要打扫', u'是否吃药', u'需要帮助', u'是否起床', u'活动']
     return render_template('xueya.html', show_chart=True, title=title, table_head=table_head, content=cur.fetchall())
 
+
 @app.route('/insert')
 def insert():
     cur = get_db().cursor()
@@ -186,20 +187,20 @@ def insert_new(name, room, weisheng, chiyao, qiuzhu, qichuang, huodong):
 @app.route('/insert_data', methods=['GET', 'POST'])
 def insert_data():
     if request.method == 'POST':
-        if insert_new( request.form['name'], request.form['room'], request.form['option_weisheng'],
-                       request.form['option_chiyao'],request.form['option_bangzhu'],request.form['option_qichuang'],
-                       request.form['huodong']):
+        if insert_new(request.form['name'], request.form['room'], request.form['option_weisheng'],
+                      request.form['option_chiyao'], request.form['option_bangzhu'],request.form['option_qichuang'],
+                      request.form['huodong']):
             return redirect(url_for('insert'))
     return redirect(url_for('insert'))
+
 
 def valid_del(id):
     print 'id:', id
     conn = get_db()
     cur = conn.cursor()
-    conn.execute("DELETE from information where ID="+str(id));
+    cur.execute("DELETE from information where id="+str(id))
     conn.commit()
     return True
-
 
 
 @app.route('/delete_data', methods=['GET', 'POST'])
