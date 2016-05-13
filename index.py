@@ -29,6 +29,11 @@ def shouye():
     return render_template('shouye.html')
 
 
+@app.route('/jianhu')
+def jianhu():
+    return render_template('jianhu.html')
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login_process():
     error = None
@@ -209,6 +214,9 @@ def delete_data():
         if valid_del(request.form['id_del']):
             return redirect(url_for('insert'))
     return redirect(url_for('insert'))
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
